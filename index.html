@@ -2998,7 +2998,9 @@
         riskBasket: JSON.parse(Store.get('medicalCalcRiskBasket', '[]')),
 
         init() {
-            this.isTelegram = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
+            const tgWebApp = window.Telegram && window.Telegram.WebApp;
+            // In Telegram WebView platform is populated even if initData is temporarily empty.
+            this.isTelegram = !!(tgWebApp && (tgWebApp.initData || (tgWebApp.platform && tgWebApp.platform !== 'unknown')));
             if (this.isTelegram) document.documentElement.classList.add('tg-mini');
             this.setupTheme();
             this.setupTelegramMiniApp();
