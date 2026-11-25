@@ -5184,10 +5184,11 @@
     document.addEventListener('DOMContentLoaded', () => App.init());
     </script>
     <script>
-    const tg = window.Telegram.WebApp;
-
-    tg.ready();
-    tg.expand();
+    if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+    }
 </script>
 </body>
 </html>
