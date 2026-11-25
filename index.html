@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="light" data-theme-mode="system">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -697,6 +696,110 @@
             background: var(--color-gray-100); border: 1px solid var(--color-gray-300);
             border-radius: 4px; box-shadow: 0 1px 0 var(--color-gray-300); color: var(--color-gray-600);
         }
+
+
+        /* Telegram Mini App: отдельная оболочка, исходная веб-версия не меняется */
+        html.tg-mini, html.tg-mini body { min-height: 100%; height: auto; }
+        html.tg-mini body { background: var(--surface-muted); overscroll-behavior-y: contain; }
+        html.tg-mini .app { display: block; min-height: 100dvh; }
+        html.tg-mini .main { margin-left: 0; min-height: 100dvh; width: 100%; padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+        html.tg-mini .header {
+            position: sticky; top: 0; z-index: 80; min-height: 56px;
+            padding: calc(8px + env(safe-area-inset-top)) 14px 8px;
+            background: var(--surface); backdrop-filter: blur(14px);
+        }
+        html.tg-mini .header__left { min-width: 0; flex: 1; }
+        html.tg-mini .header__menu-btn { display: none !important; }
+        html.tg-mini .header__title { font-size: 17px; line-height: 1.25; }
+        html.tg-mini .header__actions { gap: 6px; }
+        html.tg-mini .header__actions .header__btn { padding: 7px 9px; font-size: 0; gap: 0; }
+        html.tg-mini .header__actions .header__btn span { font-size: 17px; }
+        html.tg-mini .patient-bar {
+            display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+            gap: 9px; padding: 12px 14px; align-items: end;
+        }
+        html.tg-mini .patient-bar__field { min-width: 0; }
+        html.tg-mini .patient-bar__field:nth-child(4) { display: none; }
+        html.tg-mini .patient-bar__field:nth-child(5) { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+        html.tg-mini .patient-bar__input { min-width: 0; width: 100%; font-size: 16px; min-height: 42px; }
+        html.tg-mini .patient-bar__age { min-height: 34px; }
+        html.tg-mini .content { padding: 14px 12px calc(20px + env(safe-area-inset-bottom)); }
+        html.tg-mini .section__header { margin-bottom: 14px; }
+        html.tg-mini .section__title { font-size: 20px; line-height: 1.25; }
+        html.tg-mini .section__subtitle { font-size: 13px; }
+        html.tg-mini .calc-grid { grid-template-columns: minmax(0,1fr); gap: 10px; }
+        html.tg-mini .calc-card { border-radius: 14px; padding: 13px; scroll-margin-top: 72px; }
+        html.tg-mini .calc-card:hover { transform: none; }
+        html.tg-mini .calc-card--collapsed { padding: 12px 13px; }
+        html.tg-mini .calc-card__header { min-height: 38px; gap: 10px; }
+        html.tg-mini .calc-card__title { font-size: 15px; }
+        html.tg-mini .calc-card__desc { font-size: 12px; }
+        html.tg-mini .calc-card--wide .calc-card__body { display: block; }
+        html.tg-mini .calc-card--wide .calc-card__body > .form-group,
+        html.tg-mini .calc-card--wide .calc-card__body > .form-check { margin-bottom: 9px; }
+        html.tg-mini .calc-card--wide .form-group { display: block; }
+        html.tg-mini .calc-card--wide .form-label { display: block; margin-bottom: 4px; font-size: 13px; white-space: normal; }
+        html.tg-mini .form-input, html.tg-mini .form-select { min-height: 44px; padding: 9px 11px; font-size: 16px; }
+        html.tg-mini input[type="checkbox"], html.tg-mini input[type="radio"] { min-width: 20px; min-height: 20px; }
+        html.tg-mini .form-check { padding: 7px 0; font-size: 14px; }
+        html.tg-mini .btn { min-height: 42px; }
+        html.tg-mini .calc-card--wide .calc-card__header { top: calc(56px + env(safe-area-inset-top)); }
+        html.tg-mini .calc-card--wide .calc-card__body > .btn-group { bottom: calc(78px + env(safe-area-inset-bottom)); }
+        html.tg-mini .conv-row { grid-template-columns: minmax(0,1fr) 14px minmax(0,1fr); }
+        html.tg-mini .history-panel {
+            top: auto; left: 8px; right: 8px; bottom: calc(70px + env(safe-area-inset-bottom));
+            width: auto; height: min(72dvh, 620px); max-height: calc(100dvh - 100px);
+            border: 1px solid var(--border-color); border-radius: 18px 18px 12px 12px;
+            transform: translateY(calc(100% + 24px)); z-index: 110;
+        }
+        html.tg-mini .history-panel.open { transform: translateY(0); }
+        html.tg-mini .history-panel__header { padding: 12px; gap: 7px; flex-wrap: wrap; }
+        html.tg-mini .history-panel__title { font-size: 15px; margin-right: auto; }
+        html.tg-mini #historyList { padding: 12px; }
+        html.tg-mini .sidebar {
+            top: auto; left: 8px; right: 8px; bottom: calc(70px + env(safe-area-inset-bottom));
+            width: auto; height: min(72dvh, 620px); max-height: calc(100dvh - 100px);
+            padding: 16px 12px; border: 1px solid var(--border-color); border-radius: 18px;
+            transform: translateY(calc(100% + 24px)); z-index: 120;
+        }
+        html.tg-mini .sidebar.open { transform: translateY(0); }
+        html.tg-mini .sidebar__brand { padding: 0 6px; margin-bottom: 10px; }
+        html.tg-mini .sidebar__section-title { padding: 8px 6px; }
+        html.tg-mini .sidebar__nav { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; overflow-y: auto; }
+        html.tg-mini .sidebar__nav-item { border: 0; border-radius: 10px; padding: 11px 9px; font-size: 13px; min-width: 0; }
+        html.tg-mini .sidebar__nav-item.active { border: 0; background: var(--color-primary-100); }
+        html.tg-mini .sidebar__footer { display: none; }
+        html.tg-mini .sidebar__actions { padding: 10px 4px 0; }
+        html.tg-mini .sidebar-overlay { z-index: 105; background: rgba(0,0,0,.38); }
+        html.tg-mini .modal { padding: 12px 10px calc(82px + env(safe-area-inset-bottom)); align-items: center; }
+        html.tg-mini .modal__panel { width: 100%; max-height: min(78dvh,680px); margin-top: 0; border-radius: 18px; }
+        html.tg-mini .modal__body { padding: 12px; }
+        html.tg-mini .search-input { min-height: 46px; font-size: 16px; }
+        #telegramBottomNav[hidden] { display: none !important; }
+        html.tg-mini #telegramBottomNav {
+            position: fixed; z-index: 100; left: 0; right: 0; bottom: 0;
+            display: grid; grid-template-columns: repeat(5,minmax(0,1fr));
+            padding: 7px 5px calc(7px + env(safe-area-inset-bottom));
+            background: var(--surface); border-top: 1px solid var(--border-color);
+            box-shadow: 0 -5px 18px rgba(0,0,0,.06);
+        }
+        html.tg-mini #telegramBottomNav button {
+            appearance: none; border: 0; background: transparent; color: var(--color-gray-500);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 3px; min-width: 0; min-height: 48px; border-radius: 10px;
+            font: 500 10px/1.2 var(--font-sans); cursor: pointer; touch-action: manipulation;
+        }
+        html.tg-mini #telegramBottomNav button:active { background: var(--surface-muted); }
+        html.tg-mini #telegramBottomNav .tg-nav-icon { font-size: 19px; line-height: 1; }
+        html.tg-mini #telegramBottomNav button[aria-current="page"] { color: var(--accent-text); background: var(--color-primary-50); }
+        html.tg-mini .toast-container { bottom: calc(78px + env(safe-area-inset-bottom)); width: calc(100% - 24px); }
+        html.tg-mini .toast { max-width: 100%; }
+        html.tg-mini .sidebar__nav-item:focus-visible, html.tg-mini button:focus-visible { outline-offset: 2px; }
+        @media (min-width: 700px) {
+            html.tg-mini .content { max-width: 760px; margin: 0 auto; }
+            html.tg-mini .patient-bar { padding-left: max(14px, calc((100% - 732px)/2)); padding-right: max(14px, calc((100% - 732px)/2)); }
+        }
+
     </style>
 </head>
 <body>
@@ -2725,6 +2828,13 @@
         </main>
         </div>
     </div><!-- /.app -->
+    <nav id="telegramBottomNav" aria-label="Навигация Telegram" hidden>
+        <button type="button" data-tg-action="categories"><span class="tg-nav-icon">▦</span><span>Категории</span></button>
+        <button type="button" data-tg-action="search"><span class="tg-nav-icon">⌕</span><span>Поиск</span></button>
+        <button type="button" data-tg-action="history"><span class="tg-nav-icon">◷</span><span>История</span></button>
+        <button type="button" data-tg-action="patient"><span class="tg-nav-icon">♙</span><span>Пациент</span></button>
+        <button type="button" data-tg-action="theme"><span class="tg-nav-icon" id="tgBottomThemeIcon">◐</span><span>Тема</span></button>
+    </nav>
     <div id="printFooter" class="print-footer" aria-hidden="true"></div>
 
     <!-- Модальные окна: поиск и самопроверка -->
@@ -2888,7 +2998,10 @@
         riskBasket: JSON.parse(Store.get('medicalCalcRiskBasket', '[]')),
 
         init() {
+            this.isTelegram = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
+            if (this.isTelegram) document.documentElement.classList.add('tg-mini');
             this.setupTheme();
+            this.setupTelegramMiniApp();
             this.setupNavigation();
             this.setupCardLayout();
             this.setupCardAccordion();
@@ -2907,6 +3020,89 @@
             this.setupConverters();
             this.renderNavCounts();
             this.applyHash();
+        },
+
+        setupTelegramMiniApp() {
+            if (!this.isTelegram) return;
+            const tg = window.Telegram.WebApp;
+            try {
+                tg.ready();
+                tg.expand();
+                if (tg.disableVerticalSwipes) tg.disableVerticalSwipes();
+                const nav = document.getElementById('telegramBottomNav');
+                if (nav) {
+                    nav.hidden = false;
+                    nav.querySelectorAll('button[data-tg-action]').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const action = btn.dataset.tgAction;
+                            if (action === 'categories') document.getElementById('sidebarToggle')?.click();
+                            if (action === 'search') document.getElementById('searchToggle')?.click();
+                            if (action === 'history') document.getElementById('historyToggle')?.click();
+                            if (action === 'patient') document.querySelector('.patient-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
+                            if (action === 'theme') document.getElementById('themeToggle')?.click();
+                        });
+                    });
+                }
+                const applyTelegramTheme = () => {
+                    const scheme = tg.colorScheme === 'dark' ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', scheme);
+                    const root = document.documentElement;
+                    const params = tg.themeParams || {};
+                    const setVar = (name, value) => { if (value) root.style.setProperty(name, value); else root.style.removeProperty(name); };
+                    setVar('--surface', params.bg_color);
+                    setVar('--surface-muted', params.secondary_bg_color);
+                    setVar('--surface-inset', params.secondary_bg_color);
+                    setVar('--chrome-bg', params.bg_color);
+                    setVar('--chrome-fg', params.text_color);
+                    setVar('--color-gray-900', params.text_color);
+                    setVar('--color-gray-800', params.text_color);
+                    setVar('--chrome-fg-2', params.hint_color);
+                    setVar('--color-gray-500', params.hint_color);
+                    setVar('--accent-solid', params.button_color);
+                    setVar('--color-primary-600', params.button_color);
+                    setVar('--accent-text', params.link_color || params.button_color);
+                    setVar('--color-primary-500', params.link_color || params.button_color);
+                    setVar('--tg-button-text', params.button_text_color);
+                    const meta = document.querySelector('meta[name="theme-color"]');
+                    if (meta) meta.content = tg.themeParams?.bg_color || (scheme === 'dark' ? '#111827' : '#ffffff');
+                    const icon = document.getElementById('tgBottomThemeIcon');
+                    if (icon) icon.textContent = scheme === 'dark' ? '☀' : '☾';
+                };
+                applyTelegramTheme();
+                if (tg.onEvent) tg.onEvent('themeChanged', applyTelegramTheme);
+                if (tg.BackButton) {
+                    tg.BackButton.onClick(() => {
+                        const sidebar = document.getElementById('sidebar');
+                        const history = document.getElementById('historyPanel');
+                        const modal = document.querySelector('.modal.open');
+                        if (modal) modal.classList.remove('open');
+                        else if (history?.classList.contains('open')) history.classList.remove('open');
+                        else if (sidebar?.classList.contains('open')) {
+                            sidebar.classList.remove('open');
+                            document.getElementById('sidebarOverlay')?.classList.remove('active');
+                        }
+                        this.syncTelegramBackButton();
+                    });
+                }
+                // В Mini App персональные данные пациента не сохраняются в localStorage.
+                const noSave = document.getElementById('patientNoSave');
+                if (noSave) { noSave.checked = true; noSave.disabled = true; }
+                this.persistPatient = false;
+                Store.set('patientNoSave', '1');
+                Store.set('patientName', '');
+                Store.set('patientDob', '');
+            } catch (e) {
+                console.warn('Telegram Mini App initialization:', e);
+            }
+        },
+
+        syncTelegramBackButton() {
+            if (!this.isTelegram || !window.Telegram?.WebApp?.BackButton) return;
+            const tg = window.Telegram.WebApp;
+            const opened = document.getElementById('sidebar')?.classList.contains('open') ||
+                document.getElementById('historyPanel')?.classList.contains('open') ||
+                !!document.querySelector('.modal.open');
+            if (opened) tg.BackButton.show(); else tg.BackButton.hide();
         },
 
         /* Тема: единственный источник истины — this.themeMode ('light' | 'dark' | 'system').
@@ -2999,6 +3195,7 @@
                     document.getElementById('sidebar').classList.remove('open');
                     document.getElementById('sidebarOverlay').classList.remove('active');
                 }
+                this.syncTelegramBackButton();
             };
 
             navItems.forEach((item, idx) => {
@@ -3069,6 +3266,7 @@
             const input = document.getElementById('searchInput');
             if (!overlay) return;
             overlay.classList.add('open');
+            this.syncTelegramBackButton();
             if (input) {
                 input.value = '';
                 if (this.renderSearchResults) this.renderSearchResults('');
@@ -3079,6 +3277,7 @@
         closeSearch() {
             const overlay = document.getElementById('searchOverlay');
             if (overlay) overlay.classList.remove('open');
+            this.syncTelegramBackButton();
         },
 
         /* Конвертер единиц: пересчёт парных полей на лету */
@@ -3118,11 +3317,13 @@
                 const isOpen = sidebar.classList.toggle('open');
                 overlay.classList.toggle('active', isOpen);
                 toggle.setAttribute('aria-expanded', isOpen);
+                this.syncTelegramBackButton();
             });
             overlay.addEventListener('click', () => {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
                 toggle.setAttribute('aria-expanded', 'false');
+                this.syncTelegramBackButton();
             });
         },
 
@@ -3130,8 +3331,8 @@
             const toggle = document.getElementById('historyToggle');
             const panel = document.getElementById('historyPanel');
             const close = document.getElementById('historyClose');
-            toggle.addEventListener('click', () => panel.classList.toggle('open'));
-            close.addEventListener('click', () => panel.classList.remove('open'));
+            toggle.addEventListener('click', () => { panel.classList.toggle('open'); this.syncTelegramBackButton(); });
+            close.addEventListener('click', () => { panel.classList.remove('open'); this.syncTelegramBackButton(); });
         },
 
         setupKeyboardShortcuts() {
@@ -3165,8 +3366,8 @@
             });
         },
         loadPatientData() {
-            const name = this.persistPatient === false ? '' : Store.get('patientName', '');
-            const dob = this.persistPatient === false ? '' : Store.get('patientDob', '');
+            const name = (this.isTelegram || this.persistPatient === false) ? '' : Store.get('patientName', '');
+            const dob = (this.isTelegram || this.persistPatient === false) ? '' : Store.get('patientDob', '');
             const nameEl = document.getElementById('patientName');
             const dobEl = document.getElementById('patientDob');
             const save = () => {
@@ -3741,9 +3942,12 @@
             const clearBtn = document.getElementById('patientClear');
             const demoBtn = document.getElementById('patientDemo');
             if (noSave) {
-                noSave.checked = Store.get('patientNoSave', '0') === '1';
-                this.persistPatient = !noSave.checked;
+                noSave.checked = this.isTelegram ? true : Store.get('patientNoSave', '0') === '1';
+                noSave.disabled = !!this.isTelegram;
+                this.persistPatient = this.isTelegram ? false : !noSave.checked;
+                if (this.isTelegram) { Store.set('patientNoSave', '1'); this.clearPatientData(false); }
                 noSave.addEventListener('change', () => {
+                    if (this.isTelegram) { noSave.checked = true; this.persistPatient = false; return; }
                     Store.set('patientNoSave', noSave.checked ? '1' : '0');
                     this.persistPatient = !noSave.checked;
                     if (!this.persistPatient) this.clearPatientData(false);
@@ -5183,12 +5387,5 @@
     // Initialize
     document.addEventListener('DOMContentLoaded', () => App.init());
     </script>
-    <script>
-    if (window.Telegram && window.Telegram.WebApp) {
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-    }
-</script>
 </body>
 </html>
