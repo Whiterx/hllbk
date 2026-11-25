@@ -3000,7 +3000,7 @@
         init() {
             const tgWebApp = window.Telegram && window.Telegram.WebApp;
             // In Telegram WebView platform is populated even if initData is temporarily empty.
-            this.isTelegram = !!(tgWebApp && (tgWebApp.initData || (tgWebApp.platform && tgWebApp.platform !== 'unknown')));
+            this.isTelegram = !!tgWebApp;
             if (this.isTelegram) document.documentElement.classList.add('tg-mini');
             this.setupTheme();
             this.setupTelegramMiniApp();
