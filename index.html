@@ -854,36 +854,7 @@ html.tg-mini .sidebar.open {
             html.tg-mini .patient-bar { padding-left: max(14px, calc((100% - 732px)/2)); padding-right: max(14px, calc((100% - 732px)/2)); }
         }
 
-/* ВРЕМЕННЫЙ ТЕСТ ВИДИМОСТИ TELEGRAM-МЕНЮ */
-html.tg-mini #telegramBottomNav {
-    background: #ffeb3b !important;
-    border-top: 2px solid #000000 !important;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.35) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-html.tg-mini #telegramBottomNav button {
-    color: #111111 !important;
-    -webkit-text-fill-color: #111111 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-}
-
-html.tg-mini #telegramBottomNav button span {
-    color: #111111 !important;
-    -webkit-text-fill-color: #111111 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-html.tg-mini #telegramBottomNav .tg-nav-icon {
-    font-size: 22px !important;
-}
-
-    </style>
+   </style>
 </head>
 <body>
     <!-- Шапка печатаемого документа: выводится ПЕРЕД приложением, чтобы в распечатке быть над результатом -->
@@ -3055,21 +3026,9 @@ html.tg-mini #telegramBottomNav .tg-nav-icon {
             const tgWebApp = window.Telegram && window.Telegram.WebApp;
             // In Telegram WebView platform is populated even if initData is temporarily empty.
             this.isTelegram = !!tgWebApp;
-            alert(
-    'Telegram: ' + !!tgWebApp +
-    '\ninitData: ' + (tgWebApp?.initData?.length || 0) +
-    '\nplatform: ' + (tgWebApp?.platform || 'нет')
-);
             if (this.isTelegram) document.documentElement.classList.add('tg-mini');
             this.setupTheme();
             this.setupTelegramMiniApp();
-            alert(
-    'ПОСЛЕ ИНИЦИАЛИЗАЦИИ' +
-    '\ntg-mini: ' + document.documentElement.classList.contains('tg-mini') +
-    '\nthis.isTelegram: ' + this.isTelegram +
-    '\nnav найдена: ' + !!document.getElementById('telegramBottomNav') +
-    '\nnav.hidden: ' + (document.getElementById('telegramBottomNav')?.hidden)
-);
             this.setupNavigation();
             this.setupCardLayout();
             this.setupCardAccordion();
@@ -3471,13 +3430,12 @@ try {
         saveToHistory(calcName, score, interpretation) {
             if (this.silent) return; // автопересчёт не должен засорять историю и риск-корзину
             const entry = {
-                id: Date.now(),
-                name: calcName,
-                score: score,
-                interpretation: interpretation,
-                patient: document.getElementById('patientName')?.value || '—',
-                date: new Date().toLocaleString('ru-RU')
-            };
+    id: Date.now(),
+    name: calcName,
+    score: score,
+    interpretation: interpretation,
+    date: new Date().toLocaleString('ru-RU')
+};
             this.history.unshift(entry);
             if (this.history.length > 50) this.history.pop();
             Store.set('medicalCalcHistory', JSON.stringify(this.history));
@@ -3495,7 +3453,7 @@ try {
             container.innerHTML = this.history.map(h => `
                 <div class="history-item" onclick="App.restoreHistory(${h.id})">
                     <div class="history-item__title">${h.name}</div>
-                    <div class="history-item__meta"><span>${h.patient}</span><span>•</span><span>${h.date}</span></div>
+                    <div class="history-item__meta"><span>${h.date}</span></div>
                     <div class="history-item__score">${h.score}</div>
                 </div>
             `).join('');
@@ -4103,8 +4061,7 @@ try {
             if (!card || !result) return;
             const titleEl = card.querySelector('.calc-card__title');
             const scoreEl = result.querySelector('.result-card__score');
-            const patientEl = document.getElementById('patientName');
-            const patient = patientEl && patientEl.value.trim() ? patientEl.value.trim() : 'пациент';
+            const patient = 'пациент';
             const conclusion = Array.from(result.querySelectorAll('.result-card__details p'))
                 .map(p => p.innerText.replace(/\s+/g, ' ').trim()).join(' ');
             const text = `${new Date().toLocaleDateString('ru-RU')}: ${patient} — ${titleEl ? titleEl.textContent.trim() : 'расчёт'}: ${scoreEl ? scoreEl.textContent.trim() : ''}. ${conclusion}`;
@@ -4136,9 +4093,6 @@ try {
             }
             const title = card.querySelector('.calc-card__title')?.textContent.trim() || 'Калькулятор';
             const subtitle = card.querySelector('.calc-card__desc')?.textContent.trim() || '';
-            const patientName = document.getElementById('patientName')?.value.trim() || 'не указан';
-            const patientDobRaw = document.getElementById('patientDob')?.value;
-            const patientDob = patientDobRaw ? new Date(patientDobRaw).toLocaleDateString('ru-RU') : 'не указана';
             const now = new Date();
             const nowStr = now.toLocaleString('ru-RU');
             const docNumber = `MC-${now.toISOString().slice(0,10).replace(/-/g,'')}-${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
@@ -4151,11 +4105,9 @@ try {
                         </div>
                         <div style="font-size:20px;font-weight:bold;margin-top:8px;">${this.escapeHtml(title)}</div>
                         ${subtitle ? `<div style="font-size:14px;color:#444;">${this.escapeHtml(subtitle)}</div>` : ''}
-                        <div style="display:flex;gap:24px;font-size:12px;margin-top:8px;color:#444;">
-                            <span><strong>Пациент:</strong> ${this.escapeHtml(patientName)}</span>
-                            <span><strong>Дата рождения:</strong> ${this.escapeHtml(patientDob)}</span>
-                                <span><strong>Дата расчёта:</strong> ${this.escapeHtml(nowStr)}</span>
-                        </div>
+                        <div style="font-size:12px;margin-top:8px;color:#444;">
+    <span><strong>Дата расчёта:</strong> ${this.escapeHtml(nowStr)}</span>
+</div>
                     </div>`;
                 // Таблица введённых параметров — без неё распечатка невоспроизводима
                 const rows = Array.from(card.querySelectorAll('input, select')).map(el => {
@@ -4184,7 +4136,7 @@ try {
                     <div style="border-top:1px solid #999;padding-top:12px;margin-top:20px;font-size:11px;color:#444;">
                         <strong>Важно:</strong> расчёт носит справочный характер и не заменяет клиническое решение врача.
                         <div style="margin-top:4px;">Дата: ${now.toLocaleDateString('ru-RU')}</div>
-                        <div style="margin-top:10px;">Врач: _______________________ / ____________________________ (подпись, ФИО)</div>
+                        <div style="margin-top:10px;">Врач: _______________________ / ____________________________ (подпись)</div>
                     </div>`;
             }
             document.querySelectorAll('.calc-card.print-target').forEach(c => c.classList.remove('print-target'));
@@ -4194,7 +4146,7 @@ try {
             if (section) section.classList.add('print-section');
             document.body.classList.add('print-mode');
             const prevTitle = document.title;
-            document.title = title + ' — ' + patientName + ' — ' + nowStr;
+            document.title = title + ' — ' + nowStr;
             let cleaned = false;
             const cleanup = () => {
                 if (cleaned) return;
@@ -4256,6 +4208,9 @@ try {
         clearHistory() {
             this.history = [];
             Store.set('medicalCalcHistory', '[]');
+            // Удаляем персональные данные из старых записей истории
+this.history = this.history.map(({ patient, ...entry }) => entry);
+Store.set('medicalCalcHistory', JSON.stringify(this.history));
             this.renderHistory();
             this.showToast('История расчётов очищена', 'info');
         },
@@ -4270,9 +4225,9 @@ try {
         /* Экспорт истории расчётов в CSV (Excel-совместимый, UTF-8 с BOM) */
         exportHistory() {
             if (!this.history.length) { this.showToast('История пуста', 'info'); return; }
-            const rows = [['Дата', 'Пациент', 'Калькулятор', 'Результат', 'Интерпретация']].concat(
-                this.history.map(h => [h.date, h.patient, h.name, h.score, h.interpretation])
-            );
+            const rows = [['Дата', 'Калькулятор', 'Результат', 'Интерпретация']].concat(
+    this.history.map(h => [h.date, h.name, h.score, h.interpretation])
+);
             const csv = rows.map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(';')).join('\r\n');
             const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
             const a = document.createElement('a');
@@ -5467,37 +5422,5 @@ try {
     document.addEventListener('DOMContentLoaded', () => App.init());
     </script>
     
-<div id="telegramDebugPanel" style="
-    position:fixed;
-    top:10px;
-    left:10px;
-    right:10px;
-    z-index:9999999;
-    padding:14px;
-    background:#172033;
-    color:white;
-    border:3px solid #6366f1;
-    border-radius:12px;
-    font:14px/1.7 monospace;
-">
-    ДИАГНОСТИКА ЗАГРУЖЕНА
-    <div id="telegramDebugInfo">Проверка...</div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var tg = window.Telegram && window.Telegram.WebApp;
-    var nav = document.getElementById('telegramBottomNav');
-
-    document.getElementById('telegramDebugInfo').textContent =
-        'WebApp: ' + (!!tg ? 'ДА' : 'НЕТ') + '\n' +
-        'Платформа: ' + (tg ? tg.platform : 'нет') + '\n' +
-        'Версия: ' + (tg ? tg.version : 'нет') + '\n' +
-        'initData: ' + (tg && tg.initData ? tg.initData.length : 0) + '\n' +
-        'tg-mini: ' + document.documentElement.classList.contains('tg-mini') + '\n' +
-        'Навигация найдена: ' + (!!nav) + '\n' +
-        'Навигация скрыта: ' + (nav ? nav.hidden : 'нет элемента');
-});
-</script>
 </body>
 </html>
