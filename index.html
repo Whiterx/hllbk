@@ -3036,7 +3036,6 @@ html.tg-mini .sidebar.open {
             this.setupMobileMenu();
             this.setupHistoryPanel();
             this.setupKeyboardShortcuts();
-            this.loadPatientData();
             this.renderHistory();
             this.renderRiskBasket();
             this.setupAutoCalc();
@@ -3403,30 +3402,7 @@ try {
                 }
             });
         },
-        loadPatientData() {
-            const name = (this.isTelegram || this.persistPatient === false) ? '' : Store.get('patientName', '');
-            const dob = (this.isTelegram || this.persistPatient === false) ? '' : Store.get('patientDob', '');
-            const nameEl = document.getElementById('patientName');
-            const dobEl = document.getElementById('patientDob');
-            const save = () => {
-                if (this.persistPatient === false) return;
-                Store.set('patientName', nameEl ? nameEl.value : '');
-                Store.set('patientDob', dobEl ? dobEl.value : '');
-            };
-            if (nameEl) { nameEl.value = name; nameEl.addEventListener('input', () => { save(); this.updatePatientAge(); }); }
-            if (dobEl) { dobEl.value = dob; dobEl.addEventListener('change', () => { save(); this.updatePatientAge(); }); }
-            this.updatePatientAge();
-        },
-
-        updatePatientAge() {
-            const dob = document.getElementById('patientDob')?.value;
-            const ageEl = document.getElementById('patientAge');
-            if (dob && ageEl) {
-                const age = Math.floor((new Date() - new Date(dob)) / (365.25 * 24 * 60 * 60 * 1000));
-                ageEl.textContent = age + ' лет';
-            } else if (ageEl) { ageEl.textContent = '—'; }
-        },
-
+                
         saveToHistory(calcName, score, interpretation) {
             if (this.silent) return; // автопересчёт не должен засорять историю и риск-корзину
             const entry = {
@@ -3439,6 +3415,18 @@ try {
             this.history.unshift(entry);
             if (this.history.length > 50) this.history.pop();
             Store.set('medicalCalcHistory', JSON.stringify(this.history));
+            // Удаляем старые персональные данные из локального хранилища
+try {
+    localStorage.removeItem('patientName');
+    localStorage.removeItem('patientDob');
+    localStorage.removeItem('patientNoSave');
+} catch (e) {
+    console.warn('Не удалось очистить данные пациента:', e);
+}
+
+// Удаляем поле patient из старой истории
+this.history = this.history.map(({ patient, ...entry }) => entry);
+Store.set('medicalCalcHistory', JSON.stringify(this.history));
             this.renderHistory();
             this.showToast('Результат сохранён в историю', 'success');
         },
@@ -3999,30 +3987,9 @@ try {
             ['click', 'keydown', 'input'].forEach(ev => document.addEventListener(ev, reset, { passive: true }));
         },
 
-        clearPatientData(notify) {
-            const nameEl = document.getElementById('patientName');
-            const dobEl = document.getElementById('patientDob');
-            if (nameEl) nameEl.value = '';
-            if (dobEl) dobEl.value = '';
-            Store.set('patientName', '');
-            Store.set('patientDob', '');
-            this.updatePatientAge();
-            if (notify) this.showToast('Персональные данные пациента очищены', 'info');
-        },
+       
 
-        fillDemoPatient() {
-            const nameEl = document.getElementById('patientName');
-            const dobEl = document.getElementById('patientDob');
-            if (nameEl) nameEl.value = 'Демо-пациент (пример)';
-            if (dobEl) dobEl.value = '1954-03-12';
-            if (this.persistPatient !== false) {
-                Store.set('patientName', nameEl ? nameEl.value : '');
-                Store.set('patientDob', dobEl ? dobEl.value : '');
-            }
-            this.updatePatientAge();
-            this.showToast('Подставлен демо-пациент: 72 года — удобно проверять шкалы с возрастом', 'info');
-        },
-
+        
         escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
