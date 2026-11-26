@@ -767,6 +767,7 @@ html.tg-mini #telegramBottomNav {
     z-index: 9999;
     background: var(--surface);
     border-top: 1px solid var(--border-color);
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
 }
 
 /* Освобождаем место под панелью */
@@ -969,35 +970,7 @@ html.tg-mini #telegramBottomNav .tg-nav-icon {
                 </div>
             </header>
 
-            <div class="patient-bar">
-                <div class="patient-bar__field">
-                    <label class="patient-bar__label">ФИО пациента</label>
-                    <input type="text" class="patient-bar__input" id="patientName" placeholder="Иванов И.И.">
-                </div>
-                <div class="patient-bar__field">
-                    <label class="patient-bar__label">Дата рождения</label>
-                    <input type="date" class="patient-bar__input" id="patientDob">
-                </div>
-                <div class="patient-bar__field">
-                    <label class="patient-bar__label">Возраст</label>
-                    <div class="patient-bar__age" id="patientAge">—</div>
-                </div>
-                <div class="patient-bar__field" style="margin-left:auto; text-align:right;">
-                    <div style="font-size:11px; opacity:0.7">Данные сохраняются локально</div>
-                    <div style="font-size:11px; opacity:0.7">Все расчёты — справочные</div>
-                </div>
-                <div class="patient-bar__field">
-                    <label class="patient-bar__check" title="Не сохранять ФИО и дату рождения на этом компьютере">
-                        <input type="checkbox" id="patientNoSave"> Не сохранять
-                    </label>
-                    <div style="display:flex; gap:6px; margin-top:2px">
-                        <button type="button" class="btn btn--ghost btn--sm" style="color:#fff; opacity:0.85" id="patientDemo">Демо</button>
-                        <button type="button" class="btn btn--ghost btn--sm" style="color:#fff; opacity:0.85" id="patientClear">Очистить</button>
-                    </div>
-                </div>
-            </div>
-
-            <main class="content">
+       <main class="content">
             <!-- PULMONOLOGY SECTION -->
             <section class="section active" id="pulmo" aria-labelledby="pulmo-title">
                 <div class="section__header">
@@ -2914,7 +2887,6 @@ html.tg-mini #telegramBottomNav .tg-nav-icon {
         <button type="button" data-tg-action="categories"><span class="tg-nav-icon">▦</span><span>Категории</span></button>
         <button type="button" data-tg-action="search"><span class="tg-nav-icon">⌕</span><span>Поиск</span></button>
         <button type="button" data-tg-action="history"><span class="tg-nav-icon">◷</span><span>История</span></button>
-        <button type="button" data-tg-action="patient"><span class="tg-nav-icon">♙</span><span>Пациент</span></button>
         <button type="button" data-tg-action="theme"><span class="tg-nav-icon" id="tgBottomThemeIcon">◐</span><span>Тема</span></button>
     </nav>
     <div id="printFooter" class="print-footer" aria-hidden="true"></div>
@@ -3146,7 +3118,6 @@ try {
                             if (action === 'categories') document.getElementById('sidebarToggle')?.click();
                             if (action === 'search') document.getElementById('searchToggle')?.click();
                             if (action === 'history') document.getElementById('historyToggle')?.click();
-                            if (action === 'patient') document.querySelector('.patient-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
                             if (action === 'theme') document.getElementById('themeToggle')?.click();
                         });
                     });
