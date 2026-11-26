@@ -774,13 +774,23 @@ html.tg-mini .main {
     padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
         html.tg-mini .conv-row { grid-template-columns: minmax(0,1fr) 14px minmax(0,1fr); }
-        html.tg-mini .history-panel {
-            top: auto; left: 8px; right: 8px; bottom: calc(70px + env(safe-area-inset-bottom));
-            width: auto; height: min(72dvh, 620px); max-height: calc(100dvh - 100px);
-            border: 1px solid var(--border-color); border-radius: 18px 18px 12px 12px;
-            transform: translateY(calc(100% + 24px)); z-index: 110;
-        }
-        html.tg-mini .history-panel.open { transform: translateY(0); }
+        
+html.tg-mini .history-panel {
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: calc(70px + env(safe-area-inset-bottom));
+    width: min(300px, 86vw);
+    height: auto;
+    max-height: none;
+    padding: calc(16px + env(safe-area-inset-top)) 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 0 18px 18px 0;
+    transform: translateX(calc(-100% - 24px));
+    z-index: 110;
+}
+
+        html.tg-mini .history-panel.open { transform: translateX(0);
         html.tg-mini .history-panel__header { padding: 12px; gap: 7px; flex-wrap: wrap; }
         html.tg-mini .history-panel__title { font-size: 15px; margin-right: auto; }
         html.tg-mini #historyList { padding: 12px; }
