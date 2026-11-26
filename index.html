@@ -3009,6 +3009,13 @@
             if (this.isTelegram) document.documentElement.classList.add('tg-mini');
             this.setupTheme();
             this.setupTelegramMiniApp();
+            alert(
+    'ПОСЛЕ ИНИЦИАЛИЗАЦИИ' +
+    '\ntg-mini: ' + document.documentElement.classList.contains('tg-mini') +
+    '\nthis.isTelegram: ' + this.isTelegram +
+    '\nnav найдена: ' + !!document.getElementById('telegramBottomNav') +
+    '\nnav.hidden: ' + (document.getElementById('telegramBottomNav')?.hidden)
+);
             this.setupNavigation();
             this.setupCardLayout();
             this.setupCardAccordion();
