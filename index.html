@@ -3065,13 +3065,26 @@ html.tg-mini .main {
         },
 
         setupTelegramMiniApp() {
-            if (!this.isTelegram) return;
-            const tg = window.Telegram.WebApp;
-            try {
-                tg.ready();
+           
+if (!this.isTelegram) return;
+const tg = window.Telegram.WebApp;
+
+// Сначала показываем нижнюю навигацию
+const nav = document.getElementById('telegramBottomNav');
+
+if (nav) {
+    nav.hidden = false;
+    nav.removeAttribute('hidden');
+    nav.style.setProperty('display', 'grid', 'important');
+    nav.style.setProperty('visibility', 'visible', 'important');
+    nav.style.setProperty('opacity', '1', 'important');
+}
+
+try {
+    tg.ready();
+
                 tg.expand();
                 if (tg.disableVerticalSwipes) tg.disableVerticalSwipes();
-                const nav = document.getElementById('telegramBottomNav');
                 if (nav) {
                     nav.hidden = false;
                     nav.querySelectorAll('button[data-tg-action]').forEach(btn => {
