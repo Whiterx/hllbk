@@ -3004,45 +3004,6 @@
             if (this.isTelegram) document.documentElement.classList.add('tg-mini');
             this.setupTheme();
             this.setupTelegramMiniApp();
-            
-// ВРЕМЕННАЯ ДИАГНОСТИКА TELEGRAM MINI APP
-{
-    const tg = window.Telegram && window.Telegram.WebApp;
-    const nav = document.getElementById('telegramBottomNav');
-
-    const debug = document.createElement('div');
-    debug.id = 'telegramDebugPanel';
-
-    debug.style.cssText = `
-        position: fixed;
-        top: 8px;
-        left: 8px;
-        right: 8px;
-        z-index: 999999;
-        padding: 12px;
-        background: #172033;
-        color: #ffffff;
-        border: 2px solid #6366f1;
-        border-radius: 10px;
-        font: 13px/1.6 monospace;
-        white-space: pre-line;
-        box-shadow: 0 4px 15px rgba(0,0,0,.4);
-    `;
-
-    debug.textContent =
-        'TELEGRAM DEBUG\n' +
-        'WebApp обнаружен: ' + (!!tg ? 'ДА' : 'НЕТ') + '\n' +
-        'Платформа: ' + (tg?.platform || 'не определена') + '\n' +
-        'Версия: ' + (tg?.version || 'нет данных') + '\n' +
-        'initData длина: ' + (tg?.initData?.length || 0) + '\n' +
-        'Класс tg-mini: ' +
-            document.documentElement.classList.contains('tg-mini') + '\n' +
-        'Нижняя панель найдена: ' + (!!nav) + '\n' +
-        'Панель скрыта: ' + (nav ? nav.hidden : 'нет элемента');
-
-    document.body.appendChild(debug);
-}
-
             this.setupNavigation();
             this.setupCardLayout();
             this.setupCardAccordion();
@@ -5447,7 +5408,7 @@
 </div>
 
 <script>
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
     var tg = window.Telegram && window.Telegram.WebApp;
     var nav = document.getElementById('telegramBottomNav');
 
@@ -5459,7 +5420,7 @@
         'tg-mini: ' + document.documentElement.classList.contains('tg-mini') + '\n' +
         'Навигация найдена: ' + (!!nav) + '\n' +
         'Навигация скрыта: ' + (nav ? nav.hidden : 'нет элемента');
-})();
+});
 </script>
 </body>
 </html>
