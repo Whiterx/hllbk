@@ -3046,6 +3046,9 @@
                 const nav = document.getElementById('telegramBottomNav');
                 if (nav) {
                     nav.hidden = false;
+                    nav.style.setProperty('display', 'flex', 'important');
+nav.style.setProperty('visibility', 'visible', 'important');
+nav.style.setProperty('opacity', '1', 'important');
                     nav.querySelectorAll('button[data-tg-action]').forEach(btn => {
                         btn.addEventListener('click', () => {
                             const action = btn.dataset.tgAction;
