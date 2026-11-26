@@ -3080,34 +3080,7 @@ try {
                         });
                     });
                 }
-                const applyTelegramTheme = () => {
-                    const scheme = tg.colorScheme === 'dark' ? 'dark' : 'light';
-                    document.documentElement.setAttribute('data-theme', scheme);
-                    const root = document.documentElement;
-                    const params = tg.themeParams || {};
-                    const setVar = (name, value) => { if (value) root.style.setProperty(name, value); else root.style.removeProperty(name); };
-                    setVar('--surface', params.bg_color);
-                    setVar('--surface-muted', params.secondary_bg_color);
-                    setVar('--surface-inset', params.secondary_bg_color);
-                    setVar('--chrome-bg', params.bg_color);
-                    setVar('--chrome-fg', params.text_color);
-                    setVar('--color-gray-900', params.text_color);
-                    setVar('--color-gray-800', params.text_color);
-                    setVar('--chrome-fg-2', params.hint_color);
-                    setVar('--color-gray-500', params.hint_color);
-                    setVar('--accent-solid', params.button_color);
-                    setVar('--color-primary-600', params.button_color);
-                    setVar('--accent-text', params.link_color || params.button_color);
-                    setVar('--color-primary-500', params.link_color || params.button_color);
-                    setVar('--tg-button-text', params.button_text_color);
-                    const meta = document.querySelector('meta[name="theme-color"]');
-                    if (meta) meta.content = tg.themeParams?.bg_color || (scheme === 'dark' ? '#111827' : '#ffffff');
-                    const icon = document.getElementById('tgBottomThemeIcon');
-                    if (icon) icon.textContent = scheme === 'dark' ? '☀' : '☾';
-                };
-                applyTelegramTheme();
-                if (tg.onEvent) tg.onEvent('themeChanged', applyTelegramTheme);
-                if (tg.BackButton) {
+                                if (tg.BackButton) {
                     tg.BackButton.onClick(() => {
                         const sidebar = document.getElementById('sidebar');
                         const history = document.getElementById('historyPanel');
@@ -3187,6 +3160,8 @@ try {
             Store.set('themeMode', this.themeMode);
             const icon = document.getElementById('themeIcon');
             if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            const tgIcon = document.getElementById('tgBottomThemeIcon');
+if (tgIcon) tgIcon.textContent = theme === 'dark' ? '☀' : '☾';
             const toggle = document.getElementById('themeToggle');
             if (toggle) {
                 toggle.setAttribute('aria-pressed', String(theme === 'dark'));
