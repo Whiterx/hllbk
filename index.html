@@ -3454,16 +3454,23 @@ Store.set('medicalCalcHistory', JSON.stringify(this.history));
             }
         },
 
-        showToast(message, type = 'info') {
-            if (this.silent) return;
-            const container = document.getElementById('toastContainer');
-            const icons = { success: '✓', error: '✕', info: 'ℹ️' };
-            const toast = document.createElement('div');
-            toast.className = `toast toast--${type}`;
-            toast.innerHTML = `<span class="toast__icon">${icons[type]}</span><span class="toast__message">${message}</span><button class="toast__close" onclick="this.parentElement.remove()">✕</button>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
-        },
+       
+showToast(message, type = 'info') {
+    // Не показываем уведомления об обычных действиях.
+    // Ошибки оставляем видимыми.
+    if (this.silent || type !== 'error') return;
+
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const icons = { error: '✕' };
+    const toast = document.createElement('div');
+    toast.className = 'toast toast--error';
+    toast.innerHTML = `<span class="toast__icon">${icons.error}</span><span class="toast__message">${message}</span><button class="toast__close" onclick="this.parentElement.remove()">✕</button>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 5000);
+},
+
 
         /* Ключ карточки — по имени функции калькулятора (используется для черновиков и ссылок) */
         cardKey(card) {
